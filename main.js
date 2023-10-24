@@ -1,3 +1,6 @@
+// Variáveis
+const btnTry = document.getElementById("btnTry");
+const btnReset = document.getElementById("btnReset");
 const screen1 = document.querySelector(".screen1");
 const screen2 = document.querySelector(".screen2");
 
@@ -11,30 +14,35 @@ function handleTryClick(event) {
   const inNumber = document.getElementById("inNumber");
 
   if (Number(inNumber.value) == randomNumber) {
-    screen1.classList.toggle("hide");
-    screen2.classList.toggle("hide");
+    toggleScreen();
 
     document.querySelector(
       "h2"
     ).innerHTML = `Você acertou em ${xAttempts} tentativas`;
+  } else if (xAttempts >= 10) {
+    toggleScreen();
+    document.querySelector(
+      "h2"
+    ).innerHTML = `Numero de tentativas excedido(${xAttempts}). Tente novamente!`;
   }
 
   inNumber.value = "";
   inNumber.focus();
   xAttempts++;
+  console.log(randomNumber);
 }
 
 function handleResetClick() {
-  screen1.classList.toggle("hide");
-  screen2.classList.toggle("hide");
-
+  toggleScreen();
   xAttempts = 1;
   inNumber.focus();
 }
 
-// Event
-const btnTry = document.getElementById("btnTry");
-const btnReset = document.getElementById("btnReset");
+function toggleScreen() {
+  screen1.classList.toggle("hide");
+  screen2.classList.toggle("hide");
+}
 
+// Event
 btnTry.addEventListener("click", handleTryClick);
 btnReset.addEventListener("click", handleResetClick);
