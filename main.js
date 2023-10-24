@@ -1,14 +1,18 @@
+const screen1 = document.querySelector(".screen1");
+const screen2 = document.querySelector(".screen2");
+
 const randomNumber = Math.round(Math.random() * 10);
 let xAttempts = 1;
 
-function handleClick(event) {
+// Callback
+function handleTryClick(event) {
   event.preventDefault();
 
   const inNumber = document.getElementById("inNumber");
 
   if (Number(inNumber.value) == randomNumber) {
-    document.querySelector(".screen1").classList.add("hide");
-    document.querySelector(".screen2").classList.remove("hide");
+    screen1.classList.toggle("hide");
+    screen2.classList.toggle("hide");
 
     document.querySelector(
       "h2"
@@ -19,3 +23,18 @@ function handleClick(event) {
   inNumber.focus();
   xAttempts++;
 }
+
+function handleResetClick() {
+  screen1.classList.toggle("hide");
+  screen2.classList.toggle("hide");
+
+  xAttempts = 1;
+  inNumber.focus();
+}
+
+// Event
+const btnTry = document.getElementById("btnTry");
+const btnReset = document.getElementById("btnReset");
+
+btnTry.addEventListener("click", handleTryClick);
+btnReset.addEventListener("click", handleResetClick);
